@@ -1,80 +1,160 @@
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ExternalLink, Github } from "lucide-react";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import './Projects.css';
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  role: string;
+  duration: string;
+  technologies: string[];
+  highlights: string[];
+  image: string;
+  links: {
+    live?: string;
+    github?: string;
+    demo?: string;
+  };
+}
 
 const Projects = () => {
-  const projects = [
+  const [activeProject, setActiveProject] = useState<number | null>(null);
+
+  const projects: Project[] = [
     {
-      title: "Project One",
-      description: "A full-stack web application built with React and Node.js",
-      tech: ["React", "Node.js", "PostgreSQL"],
-      github: "https://github.com",
-      live: "https://example.com",
+      id: 1,
+      title: "AI-Powered Analytics Platform",
+      description: "A revolutionary platform that leverages machine learning to provide predictive analytics and real-time insights for business decision-making.",
+      role: "Lead Developer",
+      duration: "2023 - Present",
+      technologies: ["React", "Python", "TensorFlow", "AWS", "GraphQL"],
+      highlights: [
+        "Implemented machine learning models achieving 95% prediction accuracy",
+        "Reduced data processing time by 60%",
+        "Scaled to handle 1M+ daily active users"
+      ],
+      image: "/projects/analytics.jpg",
+      links: {
+        live: "https://analytics.demo",
+        github: "https://github.com/yourusername/analytics"
+      }
     },
-    {
-      title: "Project Two",
-      description: "Mobile-responsive e-commerce platform",
-      tech: ["Next.js", "Tailwind CSS", "Stripe"],
-      github: "https://github.com",
-      live: "https://example.com",
-    },
+    // Add more projects...
   ];
 
   return (
-    <div className="pt-20 min-h-screen">
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-[#e94560] mb-12">Projects</h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="projects-page">
+      <motion.div 
+        className="page-title"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <h1>Projects & Achievements</h1>
+        <div className="title-underline" />
+      </motion.div>
+
+      <div className="projects-content">
+        <div className="project-timeline">
           {projects.map((project, index) => (
             <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              key={project.id}
+              className={`project-entry ${activeProject === project.id ? 'active' : ''}`}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.2 }}
             >
-              <Card className="bg-[#1a1a2e]/50 border border-[#e94560]/20 hover:border-[#e94560]/40 transition-colors">
-                <CardHeader>
-                  <CardTitle className="text-xl text-[#e94560]">{project.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tech.map((tech) => (
-                      <span
-                        key={tech}
-                        className="bg-[#16213e] text-[#e94560] px-3 py-1 rounded-full text-sm"
+              <div 
+                className="project-header"
+                onClick={() => setActiveProject(
+                  activeProject === project.id ? null : project.id
+                )}
+              >
+                <div className="project-timeline-dot" />
+                <div className="project-basic-info">
+                  <h2>{project.title}</h2>
+                  <p className="project-duration">{project.duration}</p>
+                </div>
+                <motion.div 
+                  className="expand-icon"
+                  animate={{ rotate: activeProject === project.id ? 180 : 0 }}
+                >
+                  ↓
+                </motion.div>
+              </div>
+
+              <motion.div 
+                className="project-details"
+                initial={false}
+                animate={{
+                  height: activeProject === project.id ? 'auto' : 0,
+                  opacity: activeProject === project.id ? 1 : 0
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="project-image">
+                  <img src={project.image} alt={project.title} />
+                  <div className="project-links">
+                    {Object.entries(project.links).map(([key, url]) => (
+                      <motion.a
+                        key={key}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                        {tech}
-                      </span>
+                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                      </motion.a>
                     ))}
                   </div>
-                  <div className="flex gap-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="bg-[#16213e] border-[#e94560]/20 hover:border-[#e94560]/40 text-gray-300"
-                      onClick={() => window.open(project.github, '_blank')}
-                    >
-                      <Github className="h-4 w-4 mr-2" />
-                      Code
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="bg-[#16213e] border-[#e94560]/20 hover:border-[#e94560]/40 text-gray-300"
-                      onClick={() => window.open(project.live, '_blank')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Live Demo
-                    </Button>
+                </div>
+
+                <div className="project-info">
+                  <p className="project-role">Role: {project.role}</p>
+                  <p className="project-description">{project.description}</p>
+                  
+                  <div className="project-tech">
+                    <h4>Technologies Used:</h4>
+                    <div className="tech-tags">
+                      {project.technologies.map((tech, i) => (
+                        <motion.span
+                          key={i}
+                          className="tech-tag"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: 0.1 * i }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
+
+                  <div className="project-highlights">
+                    <h4>Key Achievements:</h4>
+                    <ul>
+                      {project.highlights.map((highlight, i) => (
+                        <motion.li
+                          key={i}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.2 + (i * 0.1) }}
+                        >
+                          {highlight}
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
+      </div>
+
+      <div className="page-decoration">
+        <div className="decoration-line" />
       </div>
     </div>
   );

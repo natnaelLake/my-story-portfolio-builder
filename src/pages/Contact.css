@@ -1,0 +1,259 @@
+.contact-page {
+  height: 100%;
+  padding: 2rem;
+  overflow-y: auto;
+  font-family: 'Lora', serif;
+}
+
+.contact-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: hsl(var(--card));
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.info-item:hover {
+  transform: translateY(-2px);
+}
+
+.info-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--muted));
+  border-radius: 12px;
+}
+
+.info-details {
+  flex: 1;
+}
+
+.info-details h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.5rem;
+}
+
+.info-details a {
+  color: hsl(var(--primary));
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.info-details a:hover {
+  color: hsl(var(--primary-dark, var(--primary)));
+  text-decoration: underline;
+}
+
+.contact-form {
+  background: hsl(var(--card));
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 1rem;
+  color: hsl(var(--foreground));
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 1rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Lora', serif;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: hsl(var(--primary));
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background: hsl(var(--primary-dark, var(--primary)));
+}
+
+.thank-you-message {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: hsl(var(--card));
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.thank-you-message h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: hsl(var(--primary));
+  margin-bottom: 1rem;
+}
+
+.thank-you-message p {
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.availability-section {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: hsl(var(--card));
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.availability-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 1.5rem;
+}
+
+.availability-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  justify-content: center;
+}
+
+.availability-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem;
+  background: hsl(var(--background));
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.availability-item:hover {
+  transform: translateY(-2px);
+}
+
+.availability-icon {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .contact-page {
+    padding: 1rem;
+  }
+
+  .contact-content {
+    gap: 2rem;
+  }
+
+  .info-item {
+    padding: 1rem;
+  }
+
+  .info-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .contact-form h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.8rem;
+  }
+
+  .thank-you-message {
+    padding: 1.5rem;
+  }
+
+  .thank-you-message h2 {
+    font-size: 1.5rem;
+  }
+
+  .thank-you-message p {
+    font-size: 1rem;
+  }
+
+  .availability-section {
+    padding: 1.5rem;
+  }
+
+  .availability-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .availability-items {
+    grid-template-columns: 1fr;
+  }
+} 

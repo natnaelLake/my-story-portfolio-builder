@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+
+.journal-container {
+  min-height: 100vh;
+  padding: 2rem;
+  background: hsl(var(--background));
+  display: flex;
+  justify-content: center;
+}
+
+.book-cover {
+  max-width: 1000px;
+  width: 100%;
+  background: hsl(var(--card));
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Paper texture and lines */
+.book-cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.02) 50%, transparent 100%),
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      hsl(var(--muted)) 28px
+    );
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.journal-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  font-family: 'Caveat', cursive;
+}
+
+.journal-header h1 {
+  font-size: 4rem;
+  color: hsl(var(--primary));
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.journal-content {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.journal-entry {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.entry-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.entry-header:hover {
+  background: hsla(var(--muted), 0.1);
+}
+
+.date-marker {
+  position: relative;
+  min-width: 120px;
+}
+
+.date {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: hsl(var(--primary));
+}
+
+.marker-dot {
+  position: absolute;
+  left: -2.5rem;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  background: hsl(var(--primary));
+  border-radius: 50%;
+}
+
+.marker-dot::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: 2px;
+  height: calc(100% + 2rem);
+  background: hsl(var(--border));
+  transform: translateX(-50%);
+}
+
+.entry-title {
+  flex: 1;
+}
+
+.entry-title h2 {
+  font-family: 'Caveat', cursive;
+  font-size: 1.8rem;
+  color: hsl(var(--foreground));
+  margin-bottom: 0.25rem;
+}
+
+.entry-title h3 {
+  font-size: 1rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.expand-icon {
+  font-size: 1.5rem;
+  color: hsl(var(--muted-foreground));
+  transition: transform 0.3s ease;
+}
+
+.entry-content {
+  padding: 1rem 1rem 1rem calc(120px + 3rem);
+  overflow: hidden;
+}
+
+.description {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  margin-bottom: 1.5rem;
+}
+
+.highlights {
+  margin-bottom: 1.5rem;
+}
+
+.highlights h4 {
+  font-family: 'Caveat', cursive;
+  font-size: 1.4rem;
+  color: hsl(var(--primary));
+  margin-bottom: 1rem;
+}
+
+.highlights ul {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.highlights li {
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.highlights li::before {
+  content: '•';
+  position: absolute;
+  left: -1.5rem;
+  color: hsl(var(--primary));
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-tag {
+  font-family: 'Caveat', cursive;
+  padding: 0.3rem 1rem;
+  background: hsla(var(--primary), 0.1);
+  color: hsl(var(--primary));
+  border-radius: 999px;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .book-cover {
+    padding: 1.5rem;
+  }
+
+  .journal-content {
+    padding-left: 1rem;
+  }
+
+  .entry-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .entry-content {
+    padding: 1rem;
+  }
+
+  .date-marker {
+    min-width: auto;
+  }
+
+  .marker-dot {
+    left: -1.5rem;
+  }
+}
+
+/* Dark mode enhancements */
+[data-theme='dark'] .book-cover {
+  background: hsla(var(--card), 0.8);
+  backdrop-filter: blur(10px);
+}
+
+/* Ink effect on hover */
+.entry-header:hover .entry-title h2 {
+  color: hsl(var(--primary));
+  transition: color 0.3s ease;
+}
+
+/* Paper fold effect */
+.book-cover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, transparent 50%, rgba(0,0,0,0.1) 50%);
+  border-radius: 0 0 0 8px;
+} 

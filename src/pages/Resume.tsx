@@ -1,134 +1,141 @@
-import { Button } from "@/components/ui/button";
-import { FileDown } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
-import { Badge } from "@/components/ui/badge";
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import './Resume.css';
 
 const Resume = () => {
-  const { toast } = useToast();
+  const [downloading, setDownloading] = useState(false);
 
-  const handleDownload = () => {
-    toast({
-      title: "Resume Download",
-      description: "Your resume is being downloaded...",
-    });
+  const downloadResume = async () => {
+    setDownloading(true);
+    try {
+      const resumeElement = document.querySelector('.resume-content') as HTMLElement;
+      const canvas = await html2canvas(resumeElement, {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        backgroundColor: '#ffffff'
+      });
+
+      const imgData = canvas.toDataURL('image/jpeg', 1.0);
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210; // A4 width in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+      pdf.save('my-resume.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
-    <div className="pt-20 min-h-screen bg-background text-foreground">
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-4xl font-bold text-primary">Professional Resume</h1>
-            <p className="text-muted-foreground mt-2">Full Stack Developer</p>
-          </div>
-          <Button
-            onClick={handleDownload}
-            className="bg-primary hover:bg-primary/90"
-          >
-            <FileDown className="mr-2 h-4 w-4" />
-            Download PDF
-          </Button>
+    <div className="resume-page">
+      <motion.div 
+        className="chapter-title"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        <h1>Resume</h1>
+        <div className="chapter-decoration">
+          <div className="decoration-line" />
+          <span className="chapter-number">Resume</span>
+          <div className="decoration-line" />
         </div>
-        
-        <div className="space-y-8">
-          {/* Summary Section */}
-          <section className="bg-card p-6 rounded-lg shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-primary">Professional Summary</h2>
-            <p className="text-card-foreground">
-              Experienced Full Stack Developer with a proven track record in building scalable web applications
-              and implementing responsive designs. Passionate about creating efficient, maintainable code and
-              staying current with emerging technologies.
+      </motion.div>
+
+      <div className="resume-container">
+        <div className="resume-content">
+          <header className="resume-header">
+            <h2>Your Name</h2>
+            <p className="title">Full Stack Developer</p>
+            <div className="contact-info">
+              <span>your.email@example.com</span>
+              <span>•</span>
+              <span>+1 (234) 567-8900</span>
+              <span>•</span>
+              <span>Location, Country</span>
+            </div>
+          </header>
+
+          <section className="resume-section">
+            <h3>Professional Summary</h3>
+            <p>
+              Experienced Full Stack Developer with a proven track record in building
+              scalable web applications and leading development teams. Specialized in
+              React, Node.js, and cloud technologies.
             </p>
           </section>
 
-          {/* Education Section */}
-          <section className="bg-card p-6 rounded-lg shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-primary">Education</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-xl font-medium">Bachelor of Science in Computer Science</h3>
-                <p className="text-muted-foreground">University Name • 2018-2022</p>
-                <p className="mt-2 text-card-foreground">
-                  Relevant coursework: Data Structures, Algorithms, Web Development, Database Management
-                </p>
+          <section className="resume-section">
+            <h3>Technical Skills</h3>
+            <div className="skills-grid">
+              <div className="skill-category">
+                <h4>Frontend</h4>
+                <p>React, TypeScript, Next.js, Tailwind CSS</p>
+              </div>
+              <div className="skill-category">
+                <h4>Backend</h4>
+                <p>Node.js, Python, PostgreSQL, MongoDB</p>
+              </div>
+              <div className="skill-category">
+                <h4>DevOps</h4>
+                <p>AWS, Docker, CI/CD, Git</p>
               </div>
             </div>
           </section>
 
-          {/* Skills Section */}
-          <section className="bg-card p-6 rounded-lg shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-primary">Technical Skills</h2>
-            <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-medium mb-2">Programming Languages & Frameworks</h3>
-                <div className="flex flex-wrap gap-2">
-                  {["JavaScript", "TypeScript", "Python", "React", "Node.js", "Express", "Next.js"].map((skill) => (
-                    <Badge key={skill} variant="secondary" className="text-sm">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
+          <section className="resume-section">
+            <h3>Work Experience</h3>
+            <div className="experience-item">
+              <div className="experience-header">
+                <h4>Senior Full Stack Developer</h4>
+                <span className="date">2020 - Present</span>
               </div>
-              <div>
-                <h3 className="text-lg font-medium mb-2">Tools & Technologies</h3>
-                <div className="flex flex-wrap gap-2">
-                  {["Git", "Docker", "AWS", "MongoDB", "PostgreSQL", "Redis", "Linux"].map((skill) => (
-                    <Badge key={skill} variant="secondary" className="text-sm">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
+              <p className="company">Tech Company, Inc.</p>
+              <ul>
+                <li>Led development of microservices architecture</li>
+                <li>Improved application performance by 40%</li>
+                <li>Mentored junior developers</li>
+              </ul>
+            </div>
+            <div className="experience-item">
+              <div className="experience-header">
+                <h4>Full Stack Developer</h4>
+                <span className="date">2018 - 2020</span>
               </div>
+              <p className="company">Software Solutions Ltd.</p>
+              <ul>
+                <li>Developed and maintained client applications</li>
+                <li>Implemented automated testing</li>
+                <li>Reduced deployment time by 60%</li>
+              </ul>
             </div>
           </section>
 
-          {/* Work Experience */}
-          <section className="bg-card p-6 rounded-lg shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-primary">Work Experience</h2>
-            <div className="space-y-6">
-              <div>
-                <div className="flex flex-col md:flex-row justify-between mb-2">
-                  <h3 className="text-xl font-medium">Senior Full Stack Developer</h3>
-                  <span className="text-muted-foreground">2021 - Present</span>
-                </div>
-                <p className="text-muted-foreground mb-2">Tech Company Name</p>
-                <ul className="list-disc list-inside space-y-2 text-card-foreground">
-                  <li>Led development of microservices-based architecture</li>
-                  <li>Implemented CI/CD pipelines reducing deployment time by 40%</li>
-                  <li>Mentored junior developers and conducted code reviews</li>
-                </ul>
+          <section className="resume-section">
+            <h3>Education</h3>
+            <div className="education-item">
+              <div className="education-header">
+                <h4>Bachelor of Science in Computer Science</h4>
+                <span className="date">2014 - 2018</span>
               </div>
-              
-              <div>
-                <div className="flex flex-col md:flex-row justify-between mb-2">
-                  <h3 className="text-xl font-medium">Full Stack Developer</h3>
-                  <span className="text-muted-foreground">2019 - 2021</span>
-                </div>
-                <p className="text-muted-foreground mb-2">Previous Company Name</p>
-                <ul className="list-disc list-inside space-y-2 text-card-foreground">
-                  <li>Developed and maintained multiple client-facing applications</li>
-                  <li>Optimized database queries improving performance by 50%</li>
-                  <li>Implemented responsive designs for mobile-first applications</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Certifications */}
-          <section className="bg-card p-6 rounded-lg shadow-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-primary">Certifications</h2>
-            <div className="space-y-3">
-              <div>
-                <h3 className="text-lg font-medium">AWS Certified Developer</h3>
-                <p className="text-muted-foreground">Amazon Web Services • 2023</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-medium">Professional Scrum Master I</h3>
-                <p className="text-muted-foreground">Scrum.org • 2022</p>
-              </div>
+              <p className="institution">University of Technology</p>
             </div>
           </section>
         </div>
+
+        <motion.button
+          className="download-button"
+          onClick={downloadResume}
+          disabled={downloading}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {downloading ? 'Generating PDF...' : 'Download Resume'}
+        </motion.button>
       </div>
     </div>
   );

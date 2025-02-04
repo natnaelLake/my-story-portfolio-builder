@@ -1,0 +1,121 @@
+.book-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: hsl(var(--background));
+  perspective: 2000px;
+}
+
+.book-cover {
+  width: 80vw;
+  max-width: 1000px;
+  aspect-ratio: 3/4;
+  position: relative;
+  transform-style: preserve-3d;
+  background: hsl(var(--card));
+  border-radius: 10px;
+  box-shadow: 
+    0 0 20px rgba(0,0,0,0.1),
+    -10px 0 20px rgba(0,0,0,0.05);
+  padding: 2rem;
+}
+
+.book-open {
+  width: 90vw;
+  max-width: 1200px;
+  height: 90vh;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.page-container {
+  width: 100%;
+  height: calc(100% - 60px);
+  position: relative;
+  transform-style: preserve-3d;
+  background: hsl(var(--card));
+  border-radius: 10px;
+  box-shadow: 
+    0 0 30px rgba(0,0,0,0.1),
+    -15px 0 30px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: 
+    linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.02) 50%, transparent 100%),
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      hsl(var(--muted)) 28px
+    );
+  padding: 3rem;
+  transform-origin: left center;
+}
+
+.book-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: hsl(var(--primary));
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+  transform: scale(1.2);
+}
+
+.nav-button:disabled {
+  color: hsl(var(--muted));
+  cursor: not-allowed;
+}
+
+.page-number {
+  font-family: 'Caveat', cursive;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Paper texture and fold effects */
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.05) 0%,
+    transparent 5%,
+    transparent 95%,
+    rgba(0,0,0,0.05) 100%
+  );
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .book-cover {
+    width: 95vw;
+  }
+
+  .book-open {
+    width: 95vw;
+  }
+
+  .page {
+    padding: 1.5rem;
+  }
+} 
