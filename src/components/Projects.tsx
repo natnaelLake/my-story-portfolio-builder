@@ -21,35 +21,35 @@ const Projects = () => {
   ];
 
   return (
-    <div className="section-padding bg-white" id="projects">
-      <div className="max-w-4xl mx-auto fade-in">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+    <div className="section-padding bg-[#0d1117]" id="projects">
+      <div className="max-w-4xl mx-auto fade-in px-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-8 text-center">
           Featured Projects
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {projects.map((project) => (
-            <Card key={project.title} className="hover:shadow-lg transition-shadow">
+            <Card key={project.title} className="bg-[#0d1117] border-[#30363d] hover:border-[#58a6ff] transition-colors">
               <CardHeader>
-                <CardTitle className="text-xl text-primary">{project.title}</CardTitle>
+                <CardTitle className="text-xl text-[#58a6ff]">{project.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600 mb-4">{project.description}</p>
+                <p className="text-gray-300 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
+                      className="bg-[#21262d] text-[#58a6ff] px-3 py-1 rounded-full text-sm"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
                 <div className="flex gap-4">
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="bg-[#21262d] border-[#30363d] hover:bg-[#30363d] text-gray-300">
                     <Github className="h-4 w-4 mr-2" />
                     Code
                   </Button>
-                  <Button variant="outline" size="sm">
+                  <Button variant="outline" size="sm" className="bg-[#21262d] border-[#30363d] hover:bg-[#30363d] text-gray-300">
                     <ExternalLink className="h-4 w-4 mr-2" />
                     Live Demo
                   </Button>
