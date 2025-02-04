@@ -1,50 +1,80 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="min-h-screen flex items-center bg-[#0d1117] section-padding">
+    <div className="min-h-screen flex items-center bg-[#1a1a2e] pt-20">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center px-4">
-        <div className="text-left fade-in">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-100 mb-6">
-            Hi, I'm <span className="text-[#58a6ff]">Your Name</span>
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-left"
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Hi, I'm{" "}
+            <span className="text-[#e94560] bg-gradient-to-r from-[#e94560] to-[#ff6b6b] text-transparent bg-clip-text">
+              Your Name
+            </span>
           </h1>
           <p className="text-xl md:text-2xl text-gray-400 mb-8">
             Full Stack Developer | UI/UX Enthusiast | Problem Solver
           </p>
           <div className="flex gap-4 mb-8">
-            <Button variant="outline" size="icon" className="bg-[#21262d] border-[#30363d] hover:bg-[#30363d] text-gray-300">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer">
-                <Github className="h-5 w-5" />
-              </a>
-            </Button>
-            <Button variant="outline" size="icon" className="bg-[#21262d] border-[#30363d] hover:bg-[#30363d] text-gray-300">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </Button>
-            <Button variant="outline" size="icon" className="bg-[#21262d] border-[#30363d] hover:bg-[#30363d] text-gray-300">
-              <a href="mailto:your.email@example.com">
-                <Mail className="h-5 w-5" />
-              </a>
-            </Button>
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#16213e] p-3 rounded-full hover:bg-[#e94560] transition-colors"
+            >
+              <Github className="h-5 w-5 text-gray-300" />
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#16213e] p-3 rounded-full hover:bg-[#e94560] transition-colors"
+            >
+              <Linkedin className="h-5 w-5 text-gray-300" />
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              href="mailto:your.email@example.com"
+              className="bg-[#16213e] p-3 rounded-full hover:bg-[#e94560] transition-colors"
+            >
+              <Mail className="h-5 w-5 text-gray-300" />
+            </motion.a>
           </div>
-          <Link to="#projects">
-            <Button className="bg-[#238636] hover:bg-[#2ea043] text-white px-8 py-6 text-lg">
+          <Link to="/projects">
+            <Button className="bg-[#e94560] hover:bg-[#ff6b6b] text-white px-8 py-6 text-lg group">
               View My Work
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
-        </div>
-        <div className="relative fade-in">
-          <div className="w-full aspect-square rounded-full overflow-hidden border-4 border-[#30363d] shadow-2xl">
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="relative"
+        >
+          <div className="w-full aspect-square rounded-full overflow-hidden border-4 border-[#e94560] shadow-2xl shadow-[#e94560]/20">
             <img
               src="https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
               alt="Profile"
               className="w-full h-full object-cover"
             />
           </div>
-        </div>
+          <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[#e94560] rounded-full opacity-20 blur-2xl" />
+          <div className="absolute -top-4 -left-4 w-32 h-32 bg-[#ff6b6b] rounded-full opacity-20 blur-2xl" />
+        </motion.div>
       </div>
     </div>
   );
